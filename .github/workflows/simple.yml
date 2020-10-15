@@ -19,7 +19,7 @@ jobs:
           shell: python
   run-second-shell-command:
     runs-on: ubuntu-18.04
+    needs: ["run-shell-command"]
     steps:
         - name: echo 
           run: echo "second hello world"  
-          
