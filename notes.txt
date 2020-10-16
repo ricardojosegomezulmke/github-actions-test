@@ -1,0 +1,8 @@
+Github actions Notes
+
+
+DEBUG:
+    - secrets:
+
+javascript actions:
+    - github.com/actions/hello-world-javascript-action@v1
