@@ -6,3 +6,5 @@ DEBUG:
 
 javascript actions:
     - github.com/actions/hello-world-javascript-action@v1
+checkout git repo action:
+    - github.com/actions/checkout@v1    
