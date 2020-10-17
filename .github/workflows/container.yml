@@ -1,4 +1,4 @@
-name: container
+name: App & Mongo Container
 on: push
 
 jobs:
