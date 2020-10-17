@@ -1,23 +1,56 @@
 name: Actions Workflow
-on: [push]
+on:
+  # https://github.com/ricardojosegomezulmke/github-actions-test/dispatches
+  repository_dispatch:
+    # send in the payload
+    types: [test]
+
+  push:
+    branches:
+      # - master
+      - devel
+  # schedule:
+  #     # cron expression
+  #     - cron: "* * * * *"  
+  pull_request: 
+    types: [closed, assigned, opened, reopened]
+    # branches-ignore:
+    #   can't use both at same time
+    branches:
+      - master
+      - 'feature/*' # any branch that starts with feature/featA, but doesn't match feature/featA/one
+      # - 'feature/**' # matches any string
+      - '!feature/featC' # ignore this pattern
+    tags:
+      - v1
+      - v1.*.*
+    paths:
+      - '**.js' # if js files are pushed
+      - '!filename.js'  
 jobs: 
   run-github-actions:
     runs-on: ubuntu-18.04
     steps:
+      - name: print payload
+        run: |
+          echo "event_type=${{ github.event.event_type }}"
+          echo "client_payload=${{github.event.client_payload.xxx }}"
       - name: List Files
         run: |
           pwd
           ls
       - name: Checkout
         uses: actions/checkout@v1
-      - name: List Files
+      - name: List Files after checkout
         run: |
           pwd
           ls -a
-          echo "$GITHUB_SHA"
-          echo "$GITHUB_REPOSITORY"
-          echo "$GITHUB_WORKSPACE"
-          echo "${{ github.token }}"
+          echo "GITHUB_SHA=$GITHUB_SHA"
+          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+          echo "github.token=${{ github.token }}"
       - name: simple js action
         id: simple_js_action
         uses: actions/hello-world-javascript-action@v1
