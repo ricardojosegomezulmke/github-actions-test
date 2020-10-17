@@ -27,10 +27,19 @@ jobs:
       #     cat /etc/os-release
       - name: create a user
         run: |
-          curl -X POST http://localhost:3001/api/users \
-            -H 'Content-Type: application/json' \
-            -d '{\"username\":\"user-1\", \"address\":\"address 1\"'
+          payload='
+            {
+              "user": "user-1",
+              "address": "address-1"
+            }
+            '
+          echo $payload | curl \
+            -H "Content-Type: application/json" \
+            -X POST \
+            http://localhost:3001/api/users \
+            -d @- \
+            -v
       - name: Get Users
         run: |
-          curl -X http://localhost:3001/api/users
+          curl http://localhost:3001/api/users
               
