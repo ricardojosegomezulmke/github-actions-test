@@ -18,7 +18,7 @@ jobs:
         - name: Run my script
           uses: docker://node:12.14.1-alpine3.10
           with: 
-            entrypoint: ./my-script.sh
+            entrypoint: './my-script.sh'
             args: "my argument string"  
   node-docker:
     runs-on: ubuntu-latest

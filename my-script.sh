@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/bin/sh
 
 
 echo "hello world from myscript"
-echo "argument: $1"
+echo "arguments: $*"
